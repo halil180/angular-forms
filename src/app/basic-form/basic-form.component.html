@@ -1,0 +1,75 @@
+<form [formGroup]="myForm">
+    value {{myForm.value | json}}
+    <br>
+
+    <mat-form-field  appearance="fill">
+        <input  placeholder="name" formControlName="email">
+   
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Favorite food</mat-label>
+        <input  placeholder="Ex. Pizza" value="Sushi">
+      </mat-form-field>
+
+</form>
+
+
+
+
+ <!-- single -->
+Favorite Color: <input type="text" [formControl]="favoriteColorControl">
+value {{favoriteColorControl.value | json}}
+<button type="button" (click)="updateName()">Update Name</button>
+ <!-- single -->
+
+
+
+ <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+    <label for="first-name">First Name: </label>
+    <input id="first-name" type="text" formControlName="firstName">
+  
+    <label for="last-name">Last Name: </label>
+    <input id="last-name" type="text" formControlName="lastName">
+    value {{profileForm.value | json }}
+    {{profileForm.valid}}
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+  </form>
+
+
+
+
+
+
+  <div formArrayName="aliases">
+    <h2>Aliases</h2>
+    <button type="button" (click)="addAlias()">+ Add another alias</button>
+  
+    <div *ngFor="let alias of aliases.controls; let i=index">
+      <!-- The repeated alias template -->
+      <label for="alias-{{ i }}">Alias:</label>
+      <input id="alias-{{ i }}" type="text" [formControlName]="i">
+    </div>
+  </div>
+
+
+
+  <input type="text" id="name" name="name" class="form-control"
+      required minlength="4" appForbiddenName="bob"
+      [(ngModel)]="hero" #name="ngModel">
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)"
+    class="alert">
+
+  <div *ngIf="name.errors?.['required']">
+    Name is required.
+  </div>
+  <div *ngIf="name.errors?.['minlength']">
+    Name must be at least 4 characters long.
+  </div>
+  <div *ngIf="name.errors?.['forbiddenName']">
+    Name cannot be Bob.
+  </div>
+
+</div>

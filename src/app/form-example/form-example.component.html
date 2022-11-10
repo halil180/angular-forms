@@ -1,0 +1,19 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+  <h1>  {{myForm.value | json}}</h1>
+  <div>
+    <label>Name: <input formControlName="name" placeholder="Your name"> </label>
+  </div>
+  <div>
+    <label> Email: <input formControlName="email" placeholder="Your email"> </label>
+    <div *ngIf="myForm.get('email')?.errors && (myForm.get('email')?.dirty || myForm.get('email')?.touched)">
+      please enter a valid email
+    </div>
+  </div>
+  <div>
+    <label> Message: <input formControlName="message" placeholder="Your message"></label>
+    <div *ngIf="myForm.get('message')?.errors && (myForm.get('message')?.dirty || myForm.get('message')?.touched)">
+      please enter a valid message
+    </div>
+  </div>
+  <button type="submit" [disabled]="!myForm.valid">Send</button>
+</form>
